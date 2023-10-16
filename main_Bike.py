@@ -21,9 +21,15 @@ class Bike:
         # If it's outside of that range, then we want to call an error
         if isinstance(gear_number, int) and (gear_number >= 1) and (gear_number <= 15):
             self.gear_number = gear_number
+        elif isinstance(gear_number, int) and (gear_number >= 1) and (gear_number > 15):
+            print("ERROR: Gear must be between integer between 1 and 15, resetting to allowed max (15).")
+            self.gear_number = 15
+        elif isinstance(gear_number, int) and (gear_number < 1) and (gear_number <= 15):
+            print("ERROR: Gear must be between integer between 1 and 15, resetting to allowed max (15).")
+            self.gear_number = 15
         else:
-            print("ERROR: Gear must be between integer between 1 and 15, resetting to first gear (default)")
-            self.gear_number = 1
+            print("ERROR: Gear must be between integer between 1 and 15, resetting to allowed max (15).")
+            self.gear_number = 15
         # The current gear cannot exceed the maximum number of gears
         # The current gear can also not be below 1
         # In either case, we want to print an error message
@@ -35,7 +41,7 @@ class Bike:
             self.current_gear = 1
         # The current gear can also not be below 1
         elif isinstance(current_gear, int) and (current_gear < 1) and current_gear <= self.gear_number:
-            print("ERROR: Current gear cannot exceed gear number. Resetting current gear to default (1)")
+            print("ERROR: Current gear cannot be below 1. Resetting current gear to default (1)")
             self.current_gear = 1
         else:
             print("ERROR: Invalid entry for current_gear; resetting to first gear(default)")
@@ -116,6 +122,29 @@ class Bike:
     def get_number_of_gears(self):
         print(f"Number of gears is {self.gear_number}.")
 
+# This function allows us to set the number of gears
+    def set_gear_number(self, gear_number):
+        if isinstance(gear_number, int) and (gear_number >= 1) and (gear_number <= 15):
+            self.gear_number = gear_number
+
+        else:
+            print("ERROR: Gear must be between integer between 1 and 15, resetting to maximum allowed (15).")
+            self.gear_number = 15
+
+# This function allows us to set the number of gears
+    def set_current_gear(self, current_gear):
+        if isinstance(current_gear, int) and (current_gear >= 1) and (current_gear <= self.gear_number):
+            self.current_gear = current_gear
+        elif isinstance(current_gear, int) and (current_gear >= 1) and current_gear > self.gear_number:
+            print("ERROR: Current gear cannot exceed gear number. Resetting current gear to default (1)")
+            self.current_gear = 1
+        elif isinstance(current_gear, int) and (current_gear < 1) and current_gear <= self.gear_number:
+            print("ERROR: Current gear cannot exceed gear number. Resetting current gear to default (1)")
+            self.current_gear = 1
+        else:
+            print("ERROR: Invalid current gear, resetting to default (1).")
+            self.current_gear = 1
+
 # This function allows us to set the number of wheels
     def set_wheel_number(self, wheels):
         if isinstance(wheels, int) and (wheels >= 1) and (wheels <= 4):
@@ -129,9 +158,65 @@ class Bike:
         print(f"The number of wheels is {self.wheels}.")
 
 
-Jon_bike = Bike(10,1,2, "hand brake")
+Jon_bike = Bike(10,10,2, "hand brake")
 
 print(f"Number of Gears: {Jon_bike.gear_number}")
 print(f"Current Gear: {Jon_bike.current_gear}")
 print(f"Number of Wheels: {Jon_bike.wheels}")
 print(f"Brake Type: {Jon_bike.brakes}")
+print()
+print("Let's try setting and getting the number of gears to 11. Press [ENTER] to continue")
+input()
+Jon_bike.set_gear_number(11)
+Jon_bike.get_number_of_gears()
+print()
+print("Let's try setting and getting the current gear to 11. Press [ENTER] to continue")
+input()
+Jon_bike.set_current_gear(11)
+Jon_bike.get_current_gear()
+print()
+print("Let's try increasing the gear past max. Press [ENTER] to continue")
+input()
+Jon_bike.increase_gear()
+print()
+print("Let's try decreasing the gear below zero. Press [ENTER] to continue")
+input()
+Jon_bike.decrease_gear()
+print()
+print("Let's try setting and getting the number of wheels to 4. Press [ENTER] to continue")
+input()
+Jon_bike.set_wheel_number(4)
+Jon_bike.get_wheel_number()
+print()
+print("Let's try setting and getting (and failing) the number of wheels to 5. Press [ENTER] to continue")
+input()
+Jon_bike.set_wheel_number(5)
+Jon_bike.get_wheel_number()
+print()
+print("What about fewer wheels than 1? Will it still fail? Press [ENTER] to continue")
+input()
+Jon_bike.set_wheel_number(0)
+Jon_bike.get_wheel_number()
+print()
+print("Let's try changing to foot brakes now. Press [ENTER] to continue")
+input()
+Jon_bike.set_brakes("foot brakes")
+Jon_bike.get_brakes()
+print()
+print("Got any electric brakes? Press [ENTER] to continue")
+input()
+Jon_bike.set_brakes("electric brakes")
+Jon_bike.get_brakes()
+print()
+print("Let's try setting and getting the current gear to 8. Press [ENTER] to continue")
+input()
+Jon_bike.set_current_gear(8)
+Jon_bike.get_current_gear()
+print()
+print("Now reset the current gear. Press [ENTER] to continue")
+input()
+Jon_bike.reset_current_gear()
+Jon_bike.get_current_gear()
+print()
+print()
+print("I think that's everything. Thanks Ken!")
